@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 //import com.tomnes.dd.utils.ResourceReader;
+import com.snittarna.framework.ResourceReader;
 
 public abstract class AssetManager {
 	
@@ -17,7 +18,7 @@ public abstract class AssetManager {
 	public static BitmapFont font;
 	
 	public static void load() {
-		FreeTypeFontGenerator g = new FreeTypeFontGenerator(Gdx.files.internal("fonts/ARIAL.TTF"));
+		FreeTypeFontGenerator g = new FreeTypeFontGenerator(Gdx.files.internal("ARIAL.TTF"));
 		FreeTypeFontParameter param = new FreeTypeFontParameter();
 		param.size = 45;
 		font = g.generateFont(param);
@@ -25,11 +26,11 @@ public abstract class AssetManager {
 		regions = new HashMap<String, TextureRegion>();
 		Texture spriteSheet = new Texture("textures/spritesheet.png");
 		
-		/*ResourceReader r = new ResourceReader(Gdx.files.internal("textures/data.gd"));
+		ResourceReader r = new ResourceReader(Gdx.files.internal("textures/data.gd"));
 		for (String s : r.getAllKeys()) {
 			String[] c = r.getList(s, true);
 			regions.put(s, new TextureRegion(spriteSheet, Integer.parseInt(c[0]), Integer.parseInt(c[1]), Integer.parseInt(c[2]), Integer.parseInt(c[3])));
-		}*/
+		}
 	}
 	
 	public static TextureRegion getTexture(String name) {
