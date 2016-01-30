@@ -53,7 +53,7 @@ public class Map {
 		TileType[] types = TileType.getAll();
 		for (TileType t : types) {
 			System.out.println(c + ", " + t.getDataColor());
-			if (t.getDataColor().equals(c)) {
+			if (t.getDataColor().r == c.r && t.getDataColor().g == c.g && t.getDataColor().b == c.b) {
 				return t;
 			}
 		}

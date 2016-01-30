@@ -9,6 +9,7 @@ public class Level {
 	
 	public Level(ArrayList<Tile> tiles) {
 		this.tiles = tiles;
+		System.out.println(tiles.size() + " tiles in level");
 	}
 	
 	public ArrayList<Tile> getTiles() {
