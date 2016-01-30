@@ -22,7 +22,7 @@ public class Projectile extends GameObject {
 		
 		this.owner = owner;
 		
-		sprite.setSize(1, 1);
+		sprite.setSize(0.5f, 0.5f);
 	}
 	
 	public void update(float deltaTime) {

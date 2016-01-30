@@ -40,7 +40,7 @@ public class Player extends Killable {
 	
 	public void update(float deltaTime) {
 		super.update(deltaTime);
-		System.out.println("ayy");
+	
 		if(Gdx.input.isKeyJustPressed(Keys.SPACE) && currentFireDelay <= 0) {
 			getScene().addObject(new Projectile(getPosition().cpy(), shootDirection.value, 8, 1, this.getType(), new Animation(AssetManager.getTexture("projectile"))));
 			currentFireDelay += 10 * deltaTime;
