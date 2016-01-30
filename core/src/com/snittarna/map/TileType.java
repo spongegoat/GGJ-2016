@@ -9,6 +9,6 @@ public class TileType {
 	private TextureRegion texture;
 	
 	public TileType(ResourceReader r) {
-		this.texture = AssetManager.getTexture("")
+		this.texture = AssetManager.getTexture("");
 	}
 }

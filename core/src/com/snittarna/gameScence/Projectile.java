@@ -11,14 +11,16 @@ public class Projectile extends GameObject {
 	private float angle;
 	private float speed;
 	
-	private Killable owner;
+	private Killable.Type owner;
 	
-	public Projectile(Vector2 position, float angle, float speed, int damage, Killable owner, Animation sprite) {
+	public Projectile(Vector2 position, float angle, float speed, int damage, Killable.Type owner, Animation sprite) {
 		super(position, sprite);
 		
 		this.damage = damage;
 		this.angle = angle;
 		this.speed = speed;
+		
+		this.owner = owner;
 		
 		sprite.setSize(1, 1);
 	}
@@ -37,7 +39,7 @@ public class Projectile extends GameObject {
 		return new Vector2((float)Math.cos(angle) * speed, (float)Math.sin(angle) * speed);
 	}
 	
-	public Killable getOwner() {
+	public Killable.Type getOwner() {
 		return this.owner;
 	}
 	
