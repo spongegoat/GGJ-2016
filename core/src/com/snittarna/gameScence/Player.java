@@ -19,6 +19,8 @@ public class Player extends Killable {
 		}
 	}
 	
+	final float FRICTION = 0.8f;
+	
 	private float currentFireDelay;
 	private float maxFireDelay;
 	
@@ -28,6 +30,10 @@ public class Player extends Killable {
 	
 	private Projectile projectilePrototype;
 	
+	private float speed;
+	
+	private Vector2 velocity;
+	
 	public Player(Vector2 position) {
 		super(position, new Animation(AssetManager.getTexture("projectile")));
 		
@@ -35,11 +41,15 @@ public class Player extends Killable {
 		
 		setHealth(3);  
 		
+		this.speed = 100f;
+		
 		this.setType(Type.PLAYER);
 		
 		this.shootDirection = ShootDirection.LEFT; 
 		
 		this.projectilePrototype = new Projectile(new Vector2(0, 0), 0, 8, 1, Killable.Type.PLAYER, new Animation(AssetManager.getTexture("projectile")));
+		
+		this.velocity = new Vector2(0, 0);
 		
 		maxFireDelay = 8;
 	}
@@ -55,6 +65,12 @@ public class Player extends Killable {
 				currentFireDelay = 0;
 			}
 		}
+		
+		velocity.set(new Vector2(velocity.x*FRICTION, 0));
+		
+		System.out.println(velocity);
+		
+		this.setPosition(this.getPosition().cpy().add(new Vector2(velocity.x*deltaTime, velocity.y*deltaTime)));
 	}
 	
 	public void updateInput(float deltaTime) {
@@ -63,15 +79,19 @@ public class Player extends Killable {
 			currentFireDelay += 10 * deltaTime;
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+		if(Gdx.input.isKeyPressed(Keys.LEFT)) {
 			this.shootDirection = ShootDirection.LEFT;
+			
+			velocity.add(new Vector2(-speed * deltaTime, 0));
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+		if(Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			this.shootDirection = ShootDirection.RIGHT;
+			
+			velocity.add(new Vector2(speed * deltaTime, 0));
 		}
 		
-		if(Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if(Gdx.input.isKeyPressed(Keys.UP)) {
 			this.shootDirection = ShootDirection.UP;
 		}
 	}
