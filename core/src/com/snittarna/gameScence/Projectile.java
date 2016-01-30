@@ -43,6 +43,10 @@ public class Projectile extends GameObject {
 		return this.owner;
 	}
 	
+	public float getSpeed() { 
+		return this.speed;
+	}
+	
 	public int getDamage() {
 		return this.damage;
 	}
