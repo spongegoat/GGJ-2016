@@ -5,7 +5,7 @@ import com.snittarna.framework.Animation;
 import com.snittarna.framework.GameObject;
 
 public class PowerUp extends GameObject {
-	public enum Pattern { NORMAL, SPREAD, RAPID };
+	public enum Pattern { NORMAL, SPREAD };
 	
 	private Pattern pattern;
 	
