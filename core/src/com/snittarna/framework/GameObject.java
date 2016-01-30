@@ -3,20 +3,27 @@
  */
 package com.snittarna.framework;
 
+import java.beans.VetoableChangeListenerProxy;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.snittarna.map.Map;
+import com.snittarna.map.Tile;
 
 /**
  * @author Johannes
  */
 public abstract class GameObject {
-	private Vector2 position, size, origin;
+	private Vector2 position, size, origin, velocity;
 	private Animation sprite;
 	private Scene scene;
 	private float depth;
+	
+	final static float G = -.01f;
 
 	public void setPosition(Vector2 p) { 
 		position = p;
@@ -37,6 +44,7 @@ public abstract class GameObject {
 	
 	public void setSize(Vector2 s) { 
 		size = s;
+		System.out.println("setting size " + s);
 		if (sprite != null) sprite.setSize(s.x, s.y); 
 	}
 	
@@ -96,6 +104,7 @@ public abstract class GameObject {
 		setOriginCenter();
 		setPosition(position);
 		setSize(size);
+		velocity = new Vector2();
 	}
 	
 	public GameObject(Vector2 position, Animation sprite) {
@@ -106,7 +115,8 @@ public abstract class GameObject {
 		this.scene = scene;
 	}
 	
-	public Rectangle getHitbox(){
+	public Rectangle getHitbox() {
+		//System.out.println("hitbox size " + size);
 		return new Rectangle(this.position.cpy().sub(this.size.cpy().scl(.5f)), this.size);
 	}
 	
@@ -118,8 +128,65 @@ public abstract class GameObject {
 		return f;
 	}
 	
-	public void update(float deltaTime) { }
+	private void move(float x, float y) {
+		setPosition(getPosition().add(x, y));
+	}
 	
+	private boolean colX, colY;
+	
+	public void update(float deltaTime) { 
+		colX = false;
+		colY = false;
+		
+		float step = 0.01f;
+		
+		velocity.y += G;
+
+        ArrayList<Tile> tiles = getCloseTiles(Map.getTiles());
+
+        move(velocity.x, 0);
+        float x = (velocity.x > 0 ? 1 : (velocity.x < 0 ? -1 : 0));
+        if (x == 0) x = 1;
+        x *= step;
+        while (isCollidingWithAny(tiles))
+        {
+            move(-x, 0);
+            velocity = new Vector2(0, velocity.y);
+            colX = true;
+        }
+
+        move(0, velocity.y);
+        float y = (velocity.y > 0 ? 1 : (velocity.y < 0 ? -1 : 0));
+        y  *= step;
+        if (y == 0) y = 1 * step;
+        while (isCollidingWithAny(tiles))
+        {
+            move(0, -y);
+            velocity = new Vector2(velocity.x, 0);
+            colY = true;
+        }
+        
+        System.out.println("x: " + colX + ", y: " + colY);	
+	}
+	
+	private boolean isCollidingWithAny(ArrayList<Tile> tiles) {
+		for (Tile t : tiles) {
+			if (getHitbox().collision(t.getHitBox())) {
+				System.out.println("collision " + getHitbox().toString() + ", " + t.getHitBox().toString());
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private ArrayList<Tile> getCloseTiles(ArrayList<Tile> tiles) {
+		ArrayList<Tile> ret = new ArrayList<Tile>();
+		for (Tile t : tiles) {
+			if (distanceTo(t.getPosition()) < velocity.len() + 1.5) ret.add(t);
+		}
+		return ret;
+	}
+
 	public void draw(SpriteBatch batch) {
 		if (sprite != null) sprite.draw(batch);
 	}

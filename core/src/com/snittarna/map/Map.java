@@ -64,4 +64,8 @@ public class Map {
 	public static void draw(SpriteBatch batch) {
 		levels[currentLevel].draw(batch);
 	}
+	
+	public static ArrayList<Tile> getTiles() {
+		return levels[currentLevel].getTiles();
+	}
 }

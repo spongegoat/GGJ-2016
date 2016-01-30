@@ -70,4 +70,8 @@ public class Rectangle {
 		if (getWidth() < 0) set(getX() + getWidth(), getY(), -getWidth(), getHeight());
 		if (getHeight() < 0) set(getX(), getY() + getHeight(), getWidth(), -getHeight());
 	}
+	
+	public String toString() {
+		return x + ", " + y + ", " + width + ", " + height;
+	}
 }

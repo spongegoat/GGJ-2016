@@ -31,7 +31,7 @@ public class Player extends Killable {
 	public Player(Vector2 position) {
 		super(position, new Animation(AssetManager.getTexture("projectile")));
 		
-		getSprite().setSize(1, 1);
+		setSize(new Vector2(1, 1));
 		
 		setHealth(3);  
 		
