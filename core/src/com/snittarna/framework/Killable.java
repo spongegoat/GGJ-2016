@@ -42,4 +42,8 @@ public class Killable extends GameObject {
 	public Type getType() {
 		return this.type;
 	}
+	
+	public void setType(Type type) {
+		this.type = type;
+	}
 }

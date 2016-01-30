@@ -19,6 +19,8 @@ public class Projectile extends GameObject {
 		this.damage = damage;
 		this.angle = angle;
 		this.speed = speed;
+		
+		sprite.setSize(1, 1);
 	}
 	
 	public void update(float deltaTime) {
