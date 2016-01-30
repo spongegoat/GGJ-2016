@@ -32,7 +32,7 @@ public class Player extends Killable {
 	
 	private float speed;
 	
-	private Vector2 velocity;
+	//private Vector2 velocity;
 	
 	public Player(Vector2 position) {
 		super(position, new Animation(AssetManager.getTexture("projectile")));
@@ -41,7 +41,7 @@ public class Player extends Killable {
 		
 		setHealth(3);  
 		
-		this.speed = 100f;
+		this.speed = 5f;
 		
 		this.setType(Type.PLAYER);
 		
@@ -66,15 +66,15 @@ public class Player extends Killable {
 			}
 		}
 		
-		velocity.set(new Vector2(velocity.x*FRICTION, 0));
+		velocity.set(new Vector2(velocity.x*FRICTION, velocity.y));
 		
 		System.out.println(velocity);
 		
-		this.setPosition(this.getPosition().cpy().add(new Vector2(velocity.x*deltaTime, velocity.y*deltaTime)));
+		//this.setPosition(this.getPosition().cpy().add(new Vector2(velocity.x*deltaTime, velocity.y*deltaTime)));
 	}
 	
 	public void updateInput(float deltaTime) {
-		if(Gdx.input.isKeyJustPressed(Keys.SPACE) && currentFireDelay <= 0) {
+		if(Gdx.input.isKeyJustPressed(Keys.X) && currentFireDelay <= 0) {
 			getScene().addObject(new Projectile(getPosition().cpy().add(new Vector2(getSize().x/4, getSize().y/4)), shootDirection.value, projectilePrototype.getSpeed(), projectilePrototype.getDamage(), this.getType(), new Animation(AssetManager.getTexture("projectile"))));
 			currentFireDelay += 10 * deltaTime;
 		}
