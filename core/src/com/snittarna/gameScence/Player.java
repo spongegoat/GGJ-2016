@@ -27,7 +27,7 @@ public class Player extends Killable {
 	public Player(Vector2 position) {
 		super(position, new Animation(AssetManager.getTexture("projectile")));
 		
-		getSprite().setSize(2, 2);
+		getSprite().setSize(1, 1);
 		
 		setHealth(3);  
 		
@@ -35,7 +35,7 @@ public class Player extends Killable {
 		
 		this.shootDirection = ShootDirection.LEFT; 
 		
-		maxFireDelay = 64;
+		maxFireDelay = 8;
 	}
 	
 	public void update(float deltaTime) {
