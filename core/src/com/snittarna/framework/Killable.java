@@ -10,6 +10,9 @@ public class Killable extends GameObject {
 	
 	private Type type;
 	
+	private float invicibleTimer;
+	private float maxInvicibleTimer;
+	
 	public Killable(Vector2 position, Animation sprite) {
 		super(position, sprite);
 	}
@@ -20,11 +23,15 @@ public class Killable extends GameObject {
 		for(GameObject g : getScene().getObjects()) {
 			if(g instanceof Projectile) {
 				if(g.getHitbox().collision(getHitbox()) && ((Projectile)g).getOwner() != type) {
-					System.out.println(((Projectile) g).getOwner() + " - " + type);
-					onHit((Projectile) g);
+					//System.out.println(((Projectile) g).getOwner() + " - " + type);
+					if(invicibleTimer <= 0) onHit((Projectile) g);
 					((Projectile) g).onHit();
 				}
 			}
+		}
+		
+		if(invicibleTimer > 0) {
+			invicibleTimer -= 10 * deltaTime;
 		}
 		
 		if(health <= 0) { 
@@ -38,6 +45,7 @@ public class Killable extends GameObject {
 	
 	public void onHit(Projectile p) {
 		health -= p.getDamage();
+		invicibleTimer = maxInvicibleTimer;
 	}
 	
 	public Type getType() {
@@ -54,5 +62,9 @@ public class Killable extends GameObject {
 	
 	public void setHealth(int health) {
 		this.health = health;
+	}
+	
+	public void setMaxInvicibleTimer(float maxInvicibleTimer) {
+		this.maxInvicibleTimer = maxInvicibleTimer;
 	}
 }
