@@ -22,6 +22,8 @@ public class Projectile extends GameObject {
 		
 		this.owner = owner;
 		
+		gravitates = false;
+		
 		sprite.setSize(0.5f, 0.5f);
 	}
 	
