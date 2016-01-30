@@ -32,11 +32,7 @@ public abstract class Scene {
 		toRemove = new ArrayList<GameObject>();
 		uiCamera = new OrthographicCamera(UI_W, UI_H);
 		camera = new OrthographicCamera(G_W, G_H);
-		
-		initialize();
 	}
-	
-	public void initialize() { }
 	
 	public void update(float deltaTime) {
 		if (depthChanged) {
