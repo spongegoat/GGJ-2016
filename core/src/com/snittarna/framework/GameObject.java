@@ -135,7 +135,7 @@ public abstract class GameObject {
 		setPosition(getPosition().add(x, y));
 	}
 	
-	private boolean colX, colY;
+	protected boolean colX, colY;
 	
 	public void update(float deltaTime) { 
 		colX = false;
@@ -147,17 +147,6 @@ public abstract class GameObject {
 
         ArrayList<Tile> tiles = getCloseTiles(Map.getTiles());
 
-        move(velocity.x, 0);
-        float x = (velocity.x > 0 ? 1 : (velocity.x < 0 ? -1 : 0));
-        //if (x == 0) x = 1;
-        x *= step;
-        while (isCollidingWithAny(tiles) && x != 0)
-        {
-            move(-x, 0);
-            velocity = new Vector2(0, velocity.y);
-            colX = true;
-        }
-
         move(0, velocity.y);
         float y = (velocity.y > 0 ? 1 : (velocity.y < 0 ? -1 : 0));
         y  *= step;
@@ -167,6 +156,17 @@ public abstract class GameObject {
             move(0, -y);
             velocity = new Vector2(velocity.x, 0);
             colY = true;
+        }
+
+        move(velocity.x, 0);
+        float x = (velocity.x > 0 ? 1 : (velocity.x < 0 ? -1 : 0));
+        //if (x == 0) x = 1;
+        x *= step;
+        while (isCollidingWithAny(tiles) && x != 0)
+        {
+            move(-x, 0);
+            velocity = new Vector2(0, velocity.y);
+            colX = true;
         }
         
         System.out.println("x: " + colX + ", y: " + colY);	
