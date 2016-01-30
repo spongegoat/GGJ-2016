@@ -24,5 +24,6 @@ public class GameScene extends Scene {
 	
 	public void draw(SpriteBatch batch) {
 		Map.draw(batch);
+		super.draw(batch);
 	}
 }
