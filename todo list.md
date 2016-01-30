@@ -12,3 +12,9 @@ Visual effects | not done | Tom & Johannes
 Ui-nisse | not done | Johannes
 Physichs | not done | Johannes
 
+#### Power ups
+
+Type | Description | Status
+-----|-------------|-------
+Projectile | Spread shot | not done
+Projectile | More damage | not done

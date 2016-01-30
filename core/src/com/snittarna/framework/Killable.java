@@ -19,7 +19,8 @@ public class Killable extends GameObject {
 		
 		for(GameObject g : getScene().getObjects()) {
 			if(g instanceof Projectile) {
-				if(g.getHitbox().collision(getHitbox()) && ((Projectile)g).getOwner().getType() != type) {
+				if(g.getHitbox().collision(getHitbox()) && ((Projectile)g).getOwner() != type) {
+					System.out.println(((Projectile) g).getOwner() + " - " + type);
 					onHit((Projectile) g);
 					((Projectile) g).onHit();
 				}
@@ -45,5 +46,13 @@ public class Killable extends GameObject {
 	
 	public void setType(Type type) {
 		this.type = type;
+	}
+	
+	public int getHealth() {
+		return this.health;
+	}
+	
+	public void setHealth(int health) {
+		this.health = health;
 	}
 }
