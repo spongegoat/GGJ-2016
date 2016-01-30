@@ -3,4 +3,4 @@ textures: {
 	projectile: 0, 0, 16, 16;
 	
 	groundTile: 0, 0, 64, 64;
-}
+groundTile 64, 0, 64, 64;
