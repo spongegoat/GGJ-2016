@@ -24,7 +24,7 @@ public abstract class AssetManager {
 		font = g.generateFont(param);
 		
 		regions = new HashMap<String, TextureRegion>();
-		Texture spriteSheet = new Texture("textures/spritesheet.png");
+		Texture spriteSheet = new Texture("textures/Spritesheet_01.png");
 		
 		ResourceReader r = new ResourceReader(Gdx.files.internal("textures/data.gd"));
 		for (String s : r.getAllKeys()) {
