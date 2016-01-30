@@ -18,10 +18,12 @@ import com.snittarna.map.Tile;
  * @author Johannes
  */
 public abstract class GameObject {
-	private Vector2 position, size, origin, velocity;
+	private Vector2 position, size, origin; 
+	protected Vector2 velocity;
 	private Animation sprite;
 	private Scene scene;
 	private float depth;
+	protected boolean gravitates;
 	
 	final static float G = -.01f;
 
@@ -105,6 +107,7 @@ public abstract class GameObject {
 		setPosition(position);
 		setSize(size);
 		velocity = new Vector2();
+		gravitates = true;
 	}
 	
 	public GameObject(Vector2 position, Animation sprite) {
@@ -140,15 +143,15 @@ public abstract class GameObject {
 		
 		float step = 0.01f;
 		
-		velocity.y += G;
+		if (gravitates) velocity.y += G;
 
         ArrayList<Tile> tiles = getCloseTiles(Map.getTiles());
 
         move(velocity.x, 0);
         float x = (velocity.x > 0 ? 1 : (velocity.x < 0 ? -1 : 0));
-        if (x == 0) x = 1;
+        //if (x == 0) x = 1;
         x *= step;
-        while (isCollidingWithAny(tiles))
+        while (isCollidingWithAny(tiles) && x != 0)
         {
             move(-x, 0);
             velocity = new Vector2(0, velocity.y);
@@ -158,8 +161,8 @@ public abstract class GameObject {
         move(0, velocity.y);
         float y = (velocity.y > 0 ? 1 : (velocity.y < 0 ? -1 : 0));
         y  *= step;
-        if (y == 0) y = 1 * step;
-        while (isCollidingWithAny(tiles))
+        //if (y == 0) y = 1 * step;
+        while (isCollidingWithAny(tiles) && y != 0)
         {
             move(0, -y);
             velocity = new Vector2(velocity.x, 0);
